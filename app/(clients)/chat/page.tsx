@@ -1,6 +1,5 @@
 "use client";
 
-import MarkdownRenderer from "@/components/comoponents/markdow";
 import { Button } from "@/components/ui/button";
 import ScrollAnchor from "@/components/ui/ScrollAnchor";
 import { Textarea } from "@/components/ui/textarea";
