@@ -1,20 +1,25 @@
-import { ReactNode } from 'react'
-import "@/app/globals.css"
+import { ReactNode } from "react";
+import "@/app/globals.css";
+import AdminSidebar from "@/components/features/admin/AdminSidebar";
+import AdminHeader from "@/components/features/admin/AdminHeader";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html className="">
       <body>
-        {/* top */}
-        {/* wellcome message with shr desc */}
-        {/* left search icon notification profile pic */}
-        <aside>
-          {/* logog */}
-          {/* meanus */}
-          {/* logout */}
-        </aside>
-        {children}
+        <main className="flex h-screen overflow-hidden">
+
+          {/* Sidebar */}
+          <AdminSidebar />
+          {/* Main content */}
+          <div className="flex-1 flex flex-col h-full p-4 overflow-hidden">
+            <AdminHeader />
+            <div className="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              {children}
+            </div>
+          </div>
+        </main>
       </body>
     </html>
-  )
+  );
 }
