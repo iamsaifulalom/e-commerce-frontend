@@ -1,3 +1,10 @@
+
+export default function page() {
+  return (
+    <div>page</div>
+  )
+}
+
 // "use client";
 
 // import { useSearchParams, useRouter } from "next/navigation";
