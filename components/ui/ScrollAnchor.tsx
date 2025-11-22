@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 interface ScrollAnchorProps {
   /** Trigger scroll when this dependency changes */
-  deps: any[];
+  deps: unknown[];
   behavior?: ScrollBehavior; // "smooth" | "auto"
 }
 
@@ -11,7 +11,8 @@ export default function ScrollAnchor({ deps, behavior = "smooth" }: ScrollAnchor
 
   useEffect(() => {
     anchorRef.current?.scrollIntoView({ behavior });
-  }, deps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps, behavior]); // ✅ combine deps + behavior into a literal array
 
   return <div ref={anchorRef} />;
 }

@@ -1,5 +1,5 @@
 import SectionHeader from "@/components/ui/SectionHeader";
-import { ListItemCard,ListItemCardProps } from "./ListItemCard";
+import { ListItemCard, ListItemCardProps } from "./ListItemCard";
 
 
 interface ListSectionProps {

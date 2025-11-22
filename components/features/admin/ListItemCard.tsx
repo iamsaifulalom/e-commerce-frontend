@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BadgeCheck, CheckCircle } from "lucide-react"; // Using lucide-react for the optional 'badge'
+import { BadgeCheck } from "lucide-react"; // Using lucide-react for the optional 'badge'
 
 export interface ListItemCardProps {
   /** The URL for the item's image or customer's avatar. */

@@ -1,78 +1,99 @@
-import KPICard from '@/components/features/admin/KPICard'
-import ListSection from '@/components/features/admin/ListSection'
-import { ChartLineMultiple } from '@/components/features/admin/S'
+"use client"
+
+import KPICard from "@/components/features/admin/KPICard"
+import ListSection from "@/components/features/admin/ListSection"
+import { ChartLineMultiple } from "@/components/features/admin/S"
+import { OrderTable } from "@/components/features/order/OrderTable"
 
 export default function Dashboard() {
   return (
-    <div className='w-full h-full flex flex-col md:flex-row gap-5'>
-      {/* Summary Cards with total customer , revinew and expences */}
-      {/* graph Last Year vs. Current Year*/}
-      {/* top selling products*/}
-
-      <div className='flex-1 flex flex-col gap-16'>
-        <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+    <div className="w-full min-h-screen flex flex-col md:flex-row gap-6">
+      
+      {/* LEFT: Cards, Chart, Table */}
+      <div className="flex-1 flex flex-col gap-12">
+        
+        {/* KPI CARDS */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           <KPICard
-            title='Total customer'
+            title="Total customers"
             value={900}
             percentageChange={30}
-            changeDescription='This motnth'
+            changeDescription="This month"
           />
+
           <KPICard
-            title='Total revinew'
-            value={"900k"}
+            title="Total revenue"
+            value="900k"
             percentageChange={10}
-            changeDescription='This motnth'
-            className='bg-[#EFFCEF]'
+            changeDescription="This month"
+            className="bg-[#EFFCEF]"
           />
+
           <KPICard
-            title='Total expenses'
+            title="Total expenses"
             value={900}
             percentageChange={-40}
-            changeDescription='This motnth'
-            className='bg-[#EFF6FC]'
+            changeDescription="This month"
+            className="bg-[#EFF6FC]"
           />
         </div>
-        <ChartLineMultiple/>
-        <h1 className='text-lg font-semibold'> Top selling products </h1>
+
+        {/* CHART */}
+        <ChartLineMultiple />
+
+        {/* TABLE SECTION */}
+        <div className="space-y-4">
+          <h1 className="text-lg font-semibold">Top selling products</h1>
+          <OrderTable />
+        </div>
       </div>
-      
-      <div className='wfull md:w-60 flex flex-col gap-4'>
+
+
+      {/* RIGHT: Sidebar Lists */}
+      <aside className="w-full md:w-64 flex flex-col gap-5">
         <ListSection
-          title='Top countries by sale'
-          items={[{
-            imageFallback: 'cn',
-            imageUrl: "https://github.com/shadcn.png",
-            title: 'Nike shos',
-            value: '$400',
-          }]}
-        />
-        <ListSection
-          title='Top custommers'
-          actionText='Sell all'
-          actionHref='/custommers'
-          items={[{
-            description: 'User added data',
-            imageFallback: 'cn',
-            imageUrl: "https://github.com/shadcn.png",
-            title: 'Nike shos',
-            value: '$400',
-            showBadge: true
-          }]}
-        />
-        <ListSection
-          title='Recent orders'
-          actionText='Sell all'
-          actionHref='/orders'
-          items={[{
-            description: 'By karim',
-            imageFallback: 'cn',
-            imageUrl: "https://github.com/shadcn.png",
-            title: 'Nike shos',
-            value: '$400'
-          }]}
+          title="Top countries by sale"
+          items={[
+            {
+              imageFallback: "cn",
+              imageUrl: "https://github.com/shadcn.png",
+              title: "Nike shoes",
+              value: "$400",
+            },
+          ]}
         />
 
-      </div>
+        <ListSection
+          title="Top customers"
+          actionText="See all"
+          actionHref="/customers"
+          items={[
+            {
+              description: "User added data",
+              imageFallback: "cn",
+              imageUrl: "https://github.com/shadcn.png",
+              title: "Nike shoes",
+              value: "$400",
+              showBadge: true,
+            },
+          ]}
+        />
+
+        <ListSection
+          title="Recent orders"
+          actionText="See all"
+          actionHref="/orders"
+          items={[
+            {
+              description: "By Karim",
+              imageFallback: "cn",
+              imageUrl: "https://github.com/shadcn.png",
+              title: "Nike shoes",
+              value: "$400",
+            },
+          ]}
+        />
+      </aside>
     </div>
   )
 }

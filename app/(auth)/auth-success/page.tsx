@@ -2,22 +2,21 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Loader2 } from "lucide-react";  // shadcn icon
-import { Card, CardContent } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 export default function AuthSuccessPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
+    const token = searchParams.get("token");
     useEffect(() => {
-        const token = searchParams.get("token");
         if (token) {
             localStorage.setItem("authToken", token);
 
             // Redirect after 500ms for smooth UX
               setTimeout(() => router.push("/"), 500);
         }
-    }, []);
+    }, [router , token]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-background px-4">

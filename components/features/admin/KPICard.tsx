@@ -1,6 +1,5 @@
 'use client'
 
-import AnimatedSVG from '@/components/ui/AnimatedSVG'
 import KPIDownIndicator from '@/components/ui/KPIDownIndicator'
 import KPIUpIndicator from '@/components/ui/KPIUpIndicator'
 import { cn } from '@/lib/utils'

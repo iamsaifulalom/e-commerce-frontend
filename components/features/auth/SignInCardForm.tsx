@@ -54,7 +54,7 @@ export default function SignInCardForm() {
                     <FormControl>
                       <Input placeholder="m@example.com" type="email" {...field} />
                     </FormControl>
-                    <FormDescription>We’ll never share your email.</FormDescription>
+                    <FormDescription>We&apos;ll never share your email.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -81,7 +81,7 @@ export default function SignInCardForm() {
           </Form>
         </CardContent>
         <CardFooter className="text-xs flex justify-center text-muted-foreground">
-          Don't have accounts?
+          Don&apos;t have accounts?
           <Link
             className="ml-1 text-foreground hover:underline underline-offset-1"
             href="/sign-up"
