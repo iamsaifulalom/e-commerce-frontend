@@ -5,8 +5,7 @@ import AdminHeader from "@/components/features/admin/components/AdminHeader";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html className="">
-      <body>
+    
         <main className="flex h-screen overflow-hidden">
 
           {/* Sidebar */}
@@ -19,7 +18,5 @@ export default function Layout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </main>
-      </body>
-    </html>
   );
 }

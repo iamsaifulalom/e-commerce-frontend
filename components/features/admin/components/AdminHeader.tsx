@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { BellIcon, ChevronDown, MenuIcon, SearchIcon } from "lucide-react";
 
 export default function AdminHeader() {
@@ -32,6 +33,7 @@ export default function AdminHeader() {
       <div className="flex items-center gap-3">
         <BellIcon className="w-8 h-8 border rounded-full p-1.5 cursor-pointer" />
         <SearchIcon className="w-8 h-8 border rounded-full p-1.5 cursor-pointer" />
+        <ThemeToggle/>
 
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-3 focus:outline-none">

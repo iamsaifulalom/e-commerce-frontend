@@ -4,20 +4,21 @@ export const kpiCards = [
         value: 900,
         percentageChange: 30,
         changeDescription: "This month",
+        className: "bg-chart-2/20",
     },
     {
         title: "Total revenue",
         value: "900k",
         percentageChange: 10,
         changeDescription: "This month",
-        className: "bg-[#EFFCEF]",
+        className: "bg-chart-1/10",
     },
     {
         title: "Total expenses",
         value: 900,
         percentageChange: -40,
         changeDescription: "This month",
-        className: "bg-[#EFF6FC]",
+        className: "bg-chart-2/10",
     },
 ];
 
