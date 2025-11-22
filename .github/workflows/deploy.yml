@@ -19,8 +19,8 @@ jobs:
           node-version: 22
           cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Enable pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install Dependencies
         run: pnpm install
@@ -37,8 +37,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Enable pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install Vercel CLI
         run: pnpm add -g vercel
