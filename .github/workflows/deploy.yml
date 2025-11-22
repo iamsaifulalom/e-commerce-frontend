@@ -14,16 +14,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: 'npm'
 
-      - name: Enable pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
+      - name: Remove pnpm lock file
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            rm pnpm-lock.yaml
+          fi
 
       - name: Install Dependencies
-        run: pnpm install
+        run: npm ci
 
       - name: Run ESLint
-        run: pnpm run lint
+        run: npm run lint
 
   deploy:
     runs-on: ubuntu-latest
@@ -35,13 +38,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: 'npm'
 
-      - name: Enable pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
+      - name: Remove pnpm lock file
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            rm pnpm-lock.yaml
+          fi
 
       - name: Install Vercel CLI
-        run: pnpm add -g vercel
+        run: npm install -g vercel
 
       - name: Deploy to Vercel
         run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
