@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import "@/app/globals.css";
-import AdminSidebar from "@/components/features/admin/AdminSidebar";
-import AdminHeader from "@/components/features/admin/AdminHeader";
+import AdminSidebar from "@/components/features/admin/components/AdminSidebar";
+import AdminHeader from "@/components/features/admin/components/AdminHeader";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

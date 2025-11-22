@@ -28,7 +28,7 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function ChartLineMultiple() {
+export default function ChartLineMultiple() {
     return (
         <div>
             <div className="flex justify-between mb-8">

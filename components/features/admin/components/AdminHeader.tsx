@@ -40,7 +40,7 @@ export default function AdminHeader() {
               <AvatarImage src="https://github.com/shadcn.png" />
             </Avatar>
 
-            <div className="hidden md:flex items-center gap-1 text-lg font-semibold">
+            <div className="hidden md:flex items-center gap-1 text-sm font-semibold">
               Saiful Alom <ChevronDown className="mt-0.5" />
             </div>
           </DropdownMenuTrigger>
