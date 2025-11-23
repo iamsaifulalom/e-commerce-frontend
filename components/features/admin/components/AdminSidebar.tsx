@@ -71,7 +71,7 @@ const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
   const pathname = usePathname();
 
   return (
-    <aside className={cn("w-[250px] hidden lg:flex flex-col h-screen border-r", className)}>
+    <aside className={cn("w-[250px] hidden xl:flex flex-col h-screen border-r", className)}>
       {/* Header */}
       <div className="flex justify-center items-center py-10 border-b shrink-0">
         <AppLogo />

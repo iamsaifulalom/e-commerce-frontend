@@ -7,6 +7,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const chartData = [
     { month: "January", thisYear: 186, lastYear: 80 },
@@ -30,66 +31,71 @@ const chartConfig = {
 
 export default function ChartLineMultiple() {
     return (
-        <div>
-            <div className="flex justify-between mb-8">
-                <h1 className="text-lg font-semibold">Earnings</h1>
-                <div className="flex gap-3">
-                    <div className="flex gap-1 text-xs text-muted-foreground">
-                        <div className="size-4 bg-chart-1"></div>
-                        This year
-                    </div>
-                    <div className="flex gap-1 text-xs text-muted-foreground">
-                        <div className="size-4 bg-chart-2"></div>
-                        Last year
+        <Card>
+            <CardHeader>
+                <CardTitle> Top selling products</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="flex justify-between mb-8">
+                    <h1 className="text-lg font-semibold">Earnings</h1>
+                    <div className="flex gap-3">
+                        <div className="flex gap-1 text-xs text-muted-foreground">
+                            <div className="size-4 bg-chart-1"></div>
+                            This year
+                        </div>
+                        <div className="flex gap-1 text-xs text-muted-foreground">
+                            <div className="size-4 bg-chart-2"></div>
+                            Last year
+                        </div>
                     </div>
                 </div>
-            </div>
-            <ChartContainer config={chartConfig}>
-                <LineChart
-                    accessibilityLayer
-                    data={chartData}
-                    margin={{
-                        left: 12,
-                        right: 12,
-                    }}
-                >
-                    <CartesianGrid vertical={false} />
+                <ChartContainer config={chartConfig}>
+                    <LineChart
+                        accessibilityLayer
+                        data={chartData}
+                        margin={{
+                            left: 12,
+                            right: 12,
+                        }}
+                    >
+                        <CartesianGrid vertical={false} />
 
-                    {/* LEFT SIDE NUMBERS */}
-                    <YAxis
-                        tickLine={true}
-                        axisLine={false}
-                        tickMargin={0}
-                        width={34}
-                        tickFormatter={(value) => `$${value}k`}
-                    />
+                        {/* LEFT SIDE NUMBERS */}
+                        <YAxis
+                            tickLine={true}
+                            axisLine={false}
+                            tickMargin={0}
+                            width={34}
+                            tickFormatter={(value) => `$${value}k`}
+                        />
 
-                    <XAxis
-                        dataKey="month"
-                        tickLine={true}
-                        axisLine={false}
-                        tickMargin={8}
-                        tickFormatter={(value) => value.slice(0, 3)}
-                    />
+                        <XAxis
+                            dataKey="month"
+                            tickLine={true}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) => value.slice(0, 3)}
+                        />
 
-                    <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
+                        <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
 
-                    <Line
-                        dataKey="thisYear"
-                        type="monotone"
-                        stroke="var(--color-thisYear)"
-                        strokeWidth={2}
-                        dot={false}
-                    />
-                    <Line
-                        dataKey="lastYear"
-                        type="monotone"
-                        stroke="var(--color-lastYear)"
-                        strokeWidth={2}
-                        dot={false}
-                    />
-                </LineChart>
-            </ChartContainer>
-        </div>
+                        <Line
+                            dataKey="thisYear"
+                            type="monotone"
+                            stroke="var(--color-thisYear)"
+                            strokeWidth={2}
+                            dot={false}
+                        />
+                        <Line
+                            dataKey="lastYear"
+                            type="monotone"
+                            stroke="var(--color-lastYear)"
+                            strokeWidth={2}
+                            dot={false}
+                        />
+                    </LineChart>
+                </ChartContainer>
+            </CardContent>
+        </Card>
     )
 }

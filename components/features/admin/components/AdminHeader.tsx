@@ -2,6 +2,7 @@
 
 import AppLogo from "@/components/ui/AppLogo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +15,7 @@ import { BellIcon, ChevronDown, MenuIcon, SearchIcon } from "lucide-react";
 export default function AdminHeader() {
   return (
     <header className="w-full flex items-center justify-between py-4 mb-2">
-      
+
       {/* LEFT: Greeting */}
       <div className="hidden lg:block">
         <h1 className="text-2xl font-bold">Welcome back, Zak!</h1>
@@ -31,9 +32,13 @@ export default function AdminHeader() {
 
       {/* RIGHT: Notifications, Search, Profile Dropdown */}
       <div className="flex items-center gap-3">
-        <BellIcon className="w-8 h-8 border rounded-full p-1.5 cursor-pointer" />
-        <SearchIcon className="w-8 h-8 border rounded-full p-1.5 cursor-pointer" />
-        <ThemeToggle/>
+        <Button className="rounded-full" variant="outline" size="icon">
+          <BellIcon />
+        </Button>
+        <Button className="rounded-full" variant="outline" size="icon">
+          <SearchIcon />
+        </Button>
+        <ThemeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-3 focus:outline-none">

@@ -1,51 +1,107 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Table,
   TableBody,
   TableCell,
   TableRow,
 } from "@/components/ui/table"
-import Link from "next/link"
-import { bestSellingProducts } from "../data/products"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { orders } from "../data/orders"
+import { PencilLine, Printer, Trash2 } from "lucide-react"
+import Image from "next/image"
 
 export function OrderTable() {
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-lg font-semibold">Top selling products</h1>
-      <Table>
-        <TableBody>
-          <TableRow className="border-t hover:bg-background">
-            <TableCell className="font-medium">S/NO</TableCell>
-            <TableCell className="font-medium">Product name</TableCell>
-            <TableCell className="font-medium">Category</TableCell>
-            <TableCell className="font-medium">Stock</TableCell>
-            <TableCell className="text-right font-medium">Total sales</TableCell>
-          </TableRow>
-          {bestSellingProducts.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell className="font-medium">
-                <Avatar>
-                  <AvatarFallback>Img</AvatarFallback>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                </Avatar>
-              </TableCell>
-              <TableCell>
-                <Link href={`/`} className="hover:underline">
-                  {product.productName}
-                </Link>
-              </TableCell>
-              <TableCell><Link href={`/`} className="hover:underline">{product.category}</Link></TableCell>
-              <TableCell>
-                {product.stock ?
-                  <p className="text-green-600">In stock</p> :
-                  <p className="text-destructive">Out of stock</p>}
-              </TableCell>
-              <TableCell className="text-right">{product.totalSales}</TableCell>
+    <Card className="flex w-full flex-col">
+      <CardHeader>
+        <CardTitle>Order status</CardTitle>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <Table>
+          <TableBody>
+            <TableRow className="border-t text-muted-foreground hover:bg-input bg-input">
+              <TableCell className="font-medium">Order ID</TableCell>
+              <TableCell className="font-medium">Products</TableCell>
+              <TableCell className="font-medium">Date</TableCell>
+              <TableCell className="font-medium">Customer</TableCell>
+              <TableCell className="font-medium">Sale</TableCell>
+              <TableCell className="font-medium">Status</TableCell>
+              <TableCell className="font-medium">Actions</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                {/* =============================
+              Order ID
+              ==================================*/}
+                <TableCell className="font-medium">
+                  #{order.id}
+                </TableCell>
+                {/* =============================
+               Products
+              ==================================*/}
+                <TableCell className="grid w-20 gap-1 grid-cols-2">
+                  {order.products.slice(0, 3).map((product) => (
+                    <div key={product.name} className="aspect-square">
+                      <Image
+                        width={100}
+                        height={100}
+                        className="w-full h-full bg-red-500 rounded-full"
+                        src={product.image}
+                        alt={product.name}
+                      />
+                    </div>
+                  ))}
+                  {order.products.length - 3 > 0 &&
+                    <div className="aspect-square font-semibold border rounded-full flex justify-center items-center">
+                      +{order.products.length - 3}
+                    </div>}
+                </TableCell>
+
+                {/* =============================
+              Order date
+              ==================================*/}
+                <TableCell>{order.date}</TableCell>
+                {/* =============================
+              Customer
+              ==================================*/}
+                <TableCell>
+                  {order.customer}
+                </TableCell>
+                <TableCell>${order.sale}</TableCell>
+                <TableCell>{order.status}</TableCell>
+
+
+                <TableCell className="flex gap-6 ">
+                  <PencilLine strokeWidth={1.5} className="hover:text-green-600 cursor-pointer" size={16} />
+                  <Printer strokeWidth={1.5} className="hover:text-green-600 cursor-pointer" size={16} />
+                  <Dialog>
+                    <DialogTrigger>
+                      <Trash2 strokeWidth={1.5} className="hover:text-red-600 cursor-pointer" size={16} />
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="text-red-500">Are you absolutely sure?</DialogTitle>
+                        <DialogDescription>
+                          This action cannot be undone. This will permanently delete order from database.
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+
+    </Card>
   )
 }

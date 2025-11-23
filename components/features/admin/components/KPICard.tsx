@@ -1,5 +1,6 @@
 'use client'
 
+import { Card, CardContent } from '@/components/ui/card'
 import KPIDownIndicator from '@/components/ui/KPIDownIndicator'
 import KPIUpIndicator from '@/components/ui/KPIUpIndicator'
 import { cn } from '@/lib/utils'
@@ -20,18 +21,20 @@ export default function KPICard({
   changeDescription,
 }: KPICardProps) {
   return (
-    <div className={ cn("bg-[#E6F5F9] p-4 h-[145px] rounded-xl" , className)}>
-      <p className='text-3xl font-bold'>{value}</p>
-      <p className='text-muted-foreground mt-1 text-xs'>{title}</p>
-      {(percentageChange || changeDescription ) && (
-        <div className='flex mt-3 justify-between items-end text-sm'>
-          <div>
-            {percentageChange && <p className='font-semibold'>{percentageChange}%</p>}
-            {changeDescription && <p className='text-xs text-muted-foreground'>{changeDescription}</p>}
+    <Card className='p-0'>
+      <CardContent className={cn("bg-[#E6F5F9] p-4 h-[145px] rounded-xl", className)}>
+        <p className='text-3xl font-bold'>{value}</p>
+        <p className='text-muted-foreground mt-1 text-xs'>{title}</p>
+        {(percentageChange || changeDescription) && (
+          <div className='flex mt-3 justify-between items-end text-sm'>
+            <div>
+              {percentageChange && <p className='font-semibold'>{percentageChange}%</p>}
+              {changeDescription && <p className='text-xs text-muted-foreground'>{changeDescription}</p>}
+            </div>
+            <div>{percentageChange > 0 ? <KPIUpIndicator /> : <KPIDownIndicator />}</div>
           </div>
-          <div>{percentageChange > 0 ? <KPIUpIndicator/>: <KPIDownIndicator/>}</div>
-        </div>
-      )}
-    </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BadgeCheck } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
 
 /* ============================================================================
  * Section Header Component
@@ -14,7 +16,7 @@ type SectionHeaderProps = {
 
 function SectionHeader({ title, actionText, actionHref }: SectionHeaderProps) {
   return (
-    <div className="flex items-center justify-between border-b">
+    <div className="flex pb-2 items-center justify-between border-b">
       <h1 className="text-lg font-semibold">{title}</h1>
 
       {actionText && actionHref && (
@@ -95,16 +97,21 @@ export default function ListSection({
   items,
 }: ListSectionProps) {
   return (
-    <div className="space-y-2">
-      <SectionHeader
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {/* <SectionHeader
         title={title}
         actionText={actionText}
         actionHref={actionHref}
-      />
+      /> */}
 
-      {items.map((item) => (
-        <ListItemCard key={item.title} {...item} />
-      ))}
-    </div>
+        {items.map((item) => (
+          <ListItemCard key={item.title} {...item} />
+        ))}
+      </CardContent>
+    </Card>
   );
 }
