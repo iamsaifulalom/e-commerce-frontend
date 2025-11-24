@@ -13,26 +13,30 @@ export default function ProductsPage() {
     return (
         <Card>
             <CardContent>
-                <div className="flex w-full gap-6 justify-between">
-                    <div className="flex gap-2">
-                        <Input className="w-full" placeholder="Search product..." type="search" />
-                        <ComboboxDemo />
-                    </div>
-                    <div className="flex gap-2">
-                        <Button variant="outline">
-                            <ImportIcon /> Import csv
-                        </Button>
-                        <Button variant="outline">
-                            <ImportIcon className="rotate-180" /> Export csv
-                        </Button>
-                        <Button>
-                            <PlusIcon /> Add product
-                        </Button>
-                    </div>
-                </div>
-
                 <Table className="mt-5">
-                    <TableHeader className="border-t">
+
+                    <TableHeader>
+                        <TableRow>
+                           <TableCell colSpan={7}>
+                             <div className="flex w-full gap-6 justify-between">
+                                <div className="flex gap-2">
+                                    <Input className="w-full min-w-40" placeholder="Search product..." type="search" />
+                                    <ComboboxDemo />
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button variant="outline">
+                                        <ImportIcon /> Import csv
+                                    </Button>
+                                    <Button variant="outline">
+                                        <ImportIcon className="rotate-180" /> Export csv
+                                    </Button>
+                                    <Button>
+                                        <PlusIcon /> Add product
+                                    </Button>
+                                </div>
+                            </div>
+                           </TableCell>
+                        </TableRow>
 
                         <TableRow>
                             <TableHead >
