@@ -1,5 +1,6 @@
 import { 
     BoxIcon,
+    FolderCodeIcon,
     HomeIcon, 
     MessageCircle, 
     ReceiptIcon, 
@@ -13,6 +14,7 @@ export const adminMenu = [
         options: [
             { name: "Home", path: "/dashboard", Icon: HomeIcon },
             { name: "Products", path: "/products", Icon: BoxIcon },
+            { name: "Categories", path: "/categories", Icon: FolderCodeIcon },
             { name: "Orders", path: "/orders", Icon: ReceiptIcon },
             { name: "Customers", path: "/customers", Icon: UsersIcon },
         ]

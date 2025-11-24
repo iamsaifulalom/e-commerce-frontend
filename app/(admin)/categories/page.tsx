@@ -7,17 +7,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { products } from "@/components/features/products/data/products";
 
-export default function ProductsPage() {
+export default function CategoriesPage() {
     return (
         <Card>
             <CardContent>
                 <Table>
                     <TableHeader>
                         <TableRow>
-                           <TableCell colSpan={7}>
+                           <TableCell colSpan={5}>
                              <div className="flex w-full gap-6 justify-between">
                                 <div className="flex gap-2">
-                                    <Input className="w-full min-w-40" placeholder="Search product..." type="search" />
+                                    <Input className="w-full min-w-40" placeholder="Search categoy..." type="search" />
                                     <ComboboxDemo />
                                 </div>
                                 <div className="flex gap-2">
@@ -28,7 +28,7 @@ export default function ProductsPage() {
                                         <ImportIcon className="rotate-180" /> Export csv
                                     </Button>
                                     <Button>
-                                        <PlusIcon /> Add product
+                                        <PlusIcon /> Add category
                                     </Button>
                                 </div>
                             </div>
@@ -45,15 +45,8 @@ export default function ProductsPage() {
                                 Name
                             </TableHead>
                             <TableHead >
-                                Category
+                                Products
                             </TableHead>
-                            <TableHead >
-                                Stock
-                            </TableHead>
-                            <TableHead >
-                                Price
-                            </TableHead>
-
                             <TableHead className="text-end">
                                 Action
                             </TableHead>
@@ -73,9 +66,8 @@ export default function ProductsPage() {
                                     />
                                 </TableCell>
                                 <TableCell> {product.productName}</TableCell>
-                                <TableCell> {product.category}</TableCell>
                                 <TableCell> {product.stock}</TableCell>
-                                <TableCell> {product.price}</TableCell>
+                               
                                 <TableCell className="flex gap-3 justify-end">
                                     <EyeIcon strokeWidth={1.5} className="cursor-pointer" size={16} />
                                     <EllipsisIcon strokeWidth={1.5} className="cursor-pointer" size={16} />
