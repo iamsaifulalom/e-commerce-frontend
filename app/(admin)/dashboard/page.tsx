@@ -33,7 +33,7 @@ export default function Dashboard() {
       </div>
 
       {/* RIGHT */}
-      <aside className="w-full lg:w-72 flex flex-col gap-5">
+      <aside className="grid lg:w-72 grid-rows-1 md:grid-cols-2 lg:grid-cols-1 gap-5">
 
         <ListSection title="Top countries by sale" items={topCountries} />
 

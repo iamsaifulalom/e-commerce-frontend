@@ -17,7 +17,7 @@ export default function AdminHeader() {
     <header className="w-full flex items-center justify-between py-4 mb-2">
 
       {/* LEFT: Greeting */}
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <h1 className="text-2xl font-bold">Welcome back, Zak!</h1>
         <p className="text-sm text-muted-foreground">
           Here&apos;s what&apos;s happening with your store!
@@ -25,7 +25,7 @@ export default function AdminHeader() {
       </div>
 
       {/* MOBILE: Hamburger & Logo */}
-      <div className="flex items-center gap-4 lg:hidden">
+      <div className="flex items-center gap-4 xl:hidden">
         <MenuIcon className="w-6 h-6" />
         <AppLogo />
       </div>

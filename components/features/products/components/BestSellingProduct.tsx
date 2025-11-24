@@ -6,7 +6,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Link from "next/link"
-import { bestSellingProducts } from "../data/products"
+import { bestSellingProducts } from "../data/best-selling-products"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function BestSellingProduct() {

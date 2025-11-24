@@ -32,12 +32,10 @@ const chartConfig = {
 export default function ChartLineMultiple() {
     return (
         <Card>
-            <CardHeader>
-                <CardTitle> Top selling products</CardTitle>
-            </CardHeader>
+
             <CardContent>
                 <div className="flex justify-between mb-8">
-                    <h1 className="text-lg font-semibold">Earnings</h1>
+                    <CardTitle>Earnings</CardTitle>
                     <div className="flex gap-3">
                         <div className="flex gap-1 text-xs text-muted-foreground">
                             <div className="size-4 bg-chart-1"></div>

@@ -80,11 +80,13 @@ export function OrderTable() {
 
 
                 <TableCell className="flex gap-6 ">
+
                   <PencilLine strokeWidth={1.5} className="hover:text-green-600 cursor-pointer" size={16} />
                   <Printer strokeWidth={1.5} className="hover:text-green-600 cursor-pointer" size={16} />
+             
                   <Dialog>
                     <DialogTrigger>
-                      <Trash2 strokeWidth={1.5} className="hover:text-red-600 cursor-pointer" size={16} />
+                      <Trash2 strokeWidth={1.5} className="text-red-600 cursor-pointer" size={16} />
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
