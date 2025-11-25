@@ -99,9 +99,9 @@ const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
 
       {/* Menu Sections */}
       <div className="flex-1 overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {adminMenu.map((menu) => (
+        {adminMenu.map((menu , i) => (
           <SidebarSection
-            key={menu.sectionTitle}
+            key={i}
             sectionTitle={menu.sectionTitle}
             options={menu.options}
             pathname={pathname}

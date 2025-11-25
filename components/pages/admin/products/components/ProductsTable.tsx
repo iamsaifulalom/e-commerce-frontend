@@ -5,10 +5,11 @@ import { ProductRow } from "./ProductRow";
 import { Card, CardContent } from "@/components/ui/card";
 import Product from "../type.product";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 
 // Table Component
 export default function ProductsTable({ products }: { products: Product[] }) {
-
+    const [checked, setChecked] = useState(false)
     return (
         <Card>
             <CardContent>
@@ -20,7 +21,11 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableHead><Checkbox /></TableHead>
+                            <TableHead>
+                                <Checkbox 
+                                checked = {checked} 
+                                onCheckedChange={() => setChecked(p => !p)} />
+                            </TableHead>
                             <TableHead></TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Category</TableHead>
@@ -31,7 +36,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                     </TableHeader>
                     <TableBody>
                         {products.map((product) => (
-                            <ProductRow key={product.id} product={product} />
+                            <ProductRow key={product.id} {...product} checked={checked} />
                         ))}
                     </TableBody>
                 </Table>

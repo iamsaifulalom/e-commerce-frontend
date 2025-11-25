@@ -4,12 +4,15 @@ import { EllipsisIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Product from "../type.product";
 
+interface ProductRowProps extends Product {
+    checked?: boolean
+}
 
 // Single Product Row Component
-export function ProductRow({ product }: { product: Product }) {
+export function ProductRow({ checked, ...product }: ProductRowProps) {
     return (
         <TableRow key={product.id}>
-            <TableCell><Checkbox /></TableCell>
+            <TableCell><Checkbox checked={checked} /></TableCell>
             <TableCell>
                 <Image
                     src={product.image}
