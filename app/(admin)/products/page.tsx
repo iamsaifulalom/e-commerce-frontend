@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ComboboxDemo } from "../category/components/ComboBox";
 import { Button } from "@/components/ui/button";
-import { EllipsisIcon, EyeIcon, ImportIcon, PlusIcon, ViewIcon } from "lucide-react";
+import { EllipsisIcon, EyeIcon, FilterIcon, ImportIcon, ListFilterPlus, PlusIcon, ViewIcon } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { products } from "@/components/features/products/data/products";
@@ -14,11 +14,14 @@ export default function ProductsPage() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                           <TableCell colSpan={7}>
+                           <TableCell className="" colSpan={7}>
                              <div className="flex w-full gap-6 justify-between">
                                 <div className="flex gap-2">
-                                    <Input className="w-full min-w-40" placeholder="Search product..." type="search" />
+                                    <Input className="w-full min-w-52" placeholder="Search product..." type="search" />
                                     <ComboboxDemo />
+                                    <Button variant="outline">
+                                        <ListFilterPlus/>
+                                    </Button>
                                 </div>
                                 <div className="flex gap-2">
                                     <Button variant="outline">

@@ -8,6 +8,7 @@ import { LogInIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, ComponentType, SVGProps } from "react";
+import { useSideBarToggle } from "../hooks/useSidebarToggle";
 
 type AdminSidebarProps = {
   className?: string;
@@ -21,16 +22,21 @@ type MenuItemProps = {
   active: boolean;
 };
 
-const SidebarMenuItem: FC<MenuItemProps> = ({ name, path, Icon, active }) => (
-  <Link href={path}>
-    <Button
-      variant={active ? "default" : "ghost"}
-      className="flex gap-2 py-6 w-full justify-start"
-    >
-      <Icon /> {name}
-    </Button>
-  </Link>
-);
+const SidebarMenuItem: FC<MenuItemProps> = ({ name, path, Icon, active }) => {
+  const { toggle } = useSideBarToggle()
+
+  return (
+    <Link href={path}>
+      <Button
+        onClick={toggle}
+        variant={active ? "default" : "ghost"}
+        className="flex gap-2 py-6 w-full justify-start"
+      >
+        <Icon /> {name}
+      </Button>
+    </Link>
+  )
+};
 
 // -------------------- Section --------------------
 type SidebarSectionProps = {
@@ -57,21 +63,35 @@ const SidebarSection: FC<SidebarSectionProps> = ({ sectionTitle, options, pathna
 );
 
 // -------------------- Footer --------------------
-const SidebarFooter: FC = () => (
-  <div className="flex justify-center items-center py-6 border-t shrink-0">
-    <Button variant="ghost" className="hover:text-red-500 gap-2 py-6">
-      <LogInIcon className="rotate-180" />
-      Sign out
-    </Button>
-  </div>
-);
+const SidebarFooter: FC = () => {
+  const { toggle } = useSideBarToggle()
+
+  const handleSignOut = () => {
+    toggle()
+  }
+  return (
+    <div className="flex justify-center items-center py-6 border-t shrink-0">
+      <Button onClick={handleSignOut} variant="ghost" className="hover:text-red-500 gap-2 py-6">
+        <LogInIcon className="rotate-180" />
+        Sign out
+      </Button>
+    </div>
+  )
+};
 
 // -------------------- Main Sidebar --------------------
 const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
   const pathname = usePathname();
+  const { isOpen } = useSideBarToggle()
 
   return (
-    <aside className={cn("w-[250px] hidden xl:flex flex-col h-screen border-r", className)}>
+    <aside
+      className={cn(
+        "bg-background z-40 flex flex-col h-screen border-r overflow-hidden transition-all duration-500",
+        isOpen ? "w-[250px]" : "w-0 xl:w-[250px]",
+        className
+      )}
+    >
       {/* Header */}
       <div className="flex justify-center items-center py-10 border-b shrink-0">
         <AppLogo />

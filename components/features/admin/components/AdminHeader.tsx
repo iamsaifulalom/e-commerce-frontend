@@ -10,11 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { BellIcon, ChevronDown, MenuIcon, SearchIcon } from "lucide-react";
+import { BellIcon, ChevronDown, MenuIcon } from "lucide-react";
+import { useSideBarToggle } from "../hooks/useSidebarToggle";
 
 export default function AdminHeader() {
+  const { toggle } = useSideBarToggle();
+
   return (
-    <header className="w-full flex items-center justify-between py-4 mb-2">
+    <header className="w-full z-50 bg-background flex items-center justify-between py-4 mb-2">
 
       {/* LEFT: Greeting */}
       <div className="hidden xl:block">
@@ -26,7 +29,7 @@ export default function AdminHeader() {
 
       {/* MOBILE: Hamburger & Logo */}
       <div className="flex items-center gap-4 xl:hidden">
-        <MenuIcon className="w-6 h-6" />
+        <MenuIcon onClick={toggle} className="w-6 z-50 h-6 cursor-pointer" />
         <AppLogo />
       </div>
 
@@ -34,9 +37,6 @@ export default function AdminHeader() {
       <div className="flex items-center gap-3">
         <Button className="rounded-full" variant="outline" size="icon">
           <BellIcon />
-        </Button>
-        <Button className="rounded-full" variant="outline" size="icon">
-          <SearchIcon />
         </Button>
         <ThemeToggle />
 
