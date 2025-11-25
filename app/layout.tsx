@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react'
 export default function Layout({ children }: { children: ReactNode }) {
     return (
         <html suppressHydrationWarning>
-            <body>
+            <body className=''>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

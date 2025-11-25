@@ -17,7 +17,7 @@ export default function AdminHeader() {
   const { toggle } = useSideBarToggle();
 
   return (
-    <header className="w-full z-50 bg-background flex items-center justify-between py-4 mb-2">
+    <header className="w-full z-30 bg-background flex items-center justify-between py-4 mb-2">
 
       {/* LEFT: Greeting */}
       <div className="hidden xl:block">

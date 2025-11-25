@@ -31,7 +31,7 @@ export function BestSellingProduct() {
                 <TableCell className="font-medium">
                   <Avatar>
                     <AvatarFallback>Img</AvatarFallback>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage className="object-cover" src={product.image} />
                   </Avatar>
                 </TableCell>
                 <TableCell>

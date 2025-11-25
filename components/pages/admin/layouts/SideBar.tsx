@@ -82,36 +82,46 @@ const SidebarFooter: FC = () => {
 // -------------------- Main Sidebar --------------------
 const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
   const pathname = usePathname();
-  const { isOpen } = useSideBarToggle()
+  const { isOpen, toggle } = useSideBarToggle()
 
   return (
-    <aside
-      className={cn(
-        "bg-background z-40 flex flex-col h-screen border-r overflow-hidden transition-all duration-500",
-        isOpen ? "w-[250px]" : "w-0 xl:w-[250px]",
-        className
-      )}
-    >
-      {/* Header */}
-      <div className="flex justify-center items-center py-10 border-b shrink-0">
-        <AppLogo />
-      </div>
+    <>
+      {/* overlay  */}
+      <div
+        onClick={toggle}
+        className={cn(
+          "fixed inset-0 bg-black/50 backdrop-blur-sm z-30 transition-opacity duration-300 xl:hidden",
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+      />
+      <aside
+        className={cn(
+          "bg-background fixed w-[250px] z-40 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
+          isOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0",
+          className
+        )}
+      >
+        {/* Header */}
+        <div className="flex justify-center items-center py-10 border-b shrink-0">
+          <AppLogo />
+        </div>
 
-      {/* Menu Sections */}
-      <div className="flex-1 overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {adminMenu.map((menu , i) => (
-          <SidebarSection
-            key={i}
-            sectionTitle={menu.sectionTitle}
-            options={menu.options}
-            pathname={pathname}
-          />
-        ))}
-      </div>
+        {/* Menu Sections */}
+        <div className="flex-1 overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {adminMenu.map((menu, i) => (
+            <SidebarSection
+              key={i}
+              sectionTitle={menu.sectionTitle}
+              options={menu.options}
+              pathname={pathname}
+            />
+          ))}
+        </div>
 
-      {/* Footer */}
-      <SidebarFooter />
-    </aside>
+        {/* Footer */}
+        <SidebarFooter />
+      </aside>
+    </>
   );
 };
 
