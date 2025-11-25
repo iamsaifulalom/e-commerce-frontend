@@ -1,11 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ComboboxDemo } from "../category/components/ComboBox";
 import { Button } from "@/components/ui/button";
-import { EllipsisIcon, EyeIcon, ImportIcon, PlusIcon, ViewIcon } from "lucide-react";
+import { EllipsisIcon, EyeIcon, ImportIcon, PlusIcon } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { products } from "@/components/features/products/data/products";
+import Image from "next/image";
 
 export default function CategoriesPage() {
     return (
@@ -56,7 +56,7 @@ export default function CategoriesPage() {
                             <TableRow key={product.id}>
                                 <TableCell> <Checkbox /></TableCell>
                                 <TableCell>
-                                    <img
+                                    <Image
                                         src={product.image}
                                         alt="Product name"
                                         width={100}
