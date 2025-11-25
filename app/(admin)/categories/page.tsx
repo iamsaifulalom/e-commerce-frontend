@@ -61,7 +61,7 @@ export default function CategoriesPage() {
                                         alt="Product name"
                                         width={100}
                                         height={100}
-                                        className="size-10 rounded-sm"
+                                        className="size-10 rounded-full"
                                     />
                                 </TableCell>
                                 <TableCell> {product.productName}</TableCell>
