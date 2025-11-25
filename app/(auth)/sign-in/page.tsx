@@ -1,4 +1,4 @@
-import SignInCardForm from '@/components/features/auth/SignInCardForm'
+import SignInCardForm from '@/components/pages/auth/SignInCardForm'
 import Image from 'next/image'
 
 export default function SignIn() {

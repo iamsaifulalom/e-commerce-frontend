@@ -10,11 +10,11 @@ export const adminMenu = [
     {
         sectionTitle: "",
         options: [
-            { name: "Home", path: "/dashboard", Icon: HomeIcon },
-            { name: "Products", path: "/products", Icon: BoxIcon },
-            { name: "Categories", path: "/categories", Icon: FolderCodeIcon },
-            { name: "Customers", path: "/customers", Icon: UsersIcon },
-            { name: "Orders", path: "/orders", Icon: ReceiptIcon },
+            { name: "Home", path: "/admin", Icon: HomeIcon },
+            { name: "Products", path: "/admin/products", Icon: BoxIcon },
+            { name: "Categories", path: "/admin/categories", Icon: FolderCodeIcon },
+            { name: "Customers", path: "/admin/customers", Icon: UsersIcon },
+            { name: "Orders", path: "/admin/orders", Icon: ReceiptIcon },
         ]
     }
 ]

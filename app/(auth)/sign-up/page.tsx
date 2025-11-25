@@ -1,4 +1,4 @@
-import SignUpCardForm from '@/components/features/auth/SignUpCardForm'
+import SignUpCardForm from '@/components/pages/auth/SignUpCardForm'
 import Image from 'next/image'
 
 export default function SignUp() {
