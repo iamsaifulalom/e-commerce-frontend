@@ -6,8 +6,8 @@ import {
   KPICard,
   ListSection,
   OrderStatusPieChart
-} from "@/components/pages/admin/dashboard"
-import { chartConfig, chartData } from "@/components/pages/admin/dashboard/data/dashboard.data.orders"
+} from "@/components/admin/dashboard"
+import { chartConfig, chartData } from "@/components/admin/dashboard/data/dashboard.data.orders"
 import { BestSellingProduct } from "@/components/pages/products/components/BestSellingProduct"
 
 export default function Dashboard() {

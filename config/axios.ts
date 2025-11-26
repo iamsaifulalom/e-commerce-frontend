@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const revaroApi = axios.create({
+const shopAPI = axios.create({
     baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
     headers: {
         "Content-Type": "application/json"
@@ -9,7 +9,7 @@ const revaroApi = axios.create({
 
 })
 
-revaroApi.interceptors.request.use((config) => {
+shopAPI.interceptors.request.use((config) => {
     const token = localStorage.getItem("authToken");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -18,4 +18,4 @@ revaroApi.interceptors.request.use((config) => {
 });
 
 
-export default revaroApi
+export default shopAPI

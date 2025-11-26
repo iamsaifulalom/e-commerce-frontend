@@ -1,4 +1,4 @@
-import { productData, ProductsTable } from "@/components/pages/admin/products";
+import { productData, ProductsTable } from "@/components/admin/products";
 
 export default function ProductsPage() {
     

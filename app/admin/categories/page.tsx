@@ -1,5 +1,5 @@
-import CategoriesTable from "@/components/pages/admin/categories/components/CategoriesTable";
-import { Category } from "@/components/pages/admin/categories/types.categories";
+import CategoriesTable from "@/components/admin/categories/components/CategoriesTable";
+import { Category } from "@/components/admin/categories/types.categories";
 
 const categories: Category[] = [
   { id: 1, name: "Electronics", productsCount: 15, image: "/images/product-1.jpg" },

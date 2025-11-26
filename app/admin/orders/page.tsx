@@ -1,4 +1,4 @@
-import OrdersTable from "@/components/pages/admin/orders/components/OrdersTable";
+import OrdersTable from "@/components/admin/orders/components/OrdersTable";
 
 // orders.ts
 export const orders = [

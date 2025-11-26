@@ -8,7 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdownMenu";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { BellIcon, ChevronDown, MenuIcon } from "lucide-react";
 import { useSideBarToggle } from "../hooks/useSidebarToggle";

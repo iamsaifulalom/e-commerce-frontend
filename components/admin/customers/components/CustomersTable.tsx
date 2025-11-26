@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody } from "@/components/ui/table";
-import { users } from "@/components/pages/admin/customers/data/customers.data";
+import { users } from "@/components/admin/customers/data/customers.data";
 import CustomerTableHeader from "./CustomerTableHeader";
 import CustomerRow from "./CustomerRow";
 
