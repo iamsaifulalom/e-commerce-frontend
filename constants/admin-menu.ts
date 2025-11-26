@@ -8,7 +8,7 @@ import {
 
 export const adminMenu = [
     {
-        sectionTitle: "",
+        sectionTitle: "Main menus",
         options: [
             { name: "Home", path: "/admin", Icon: HomeIcon },
             { name: "Products", path: "/admin/products", Icon: BoxIcon },

@@ -3,7 +3,9 @@
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ImportIcon, PlusIcon } from "lucide-react";
+import { ImportIcon } from "lucide-react";
+import CategoryForm from "./CategoryForm";
+
 
 export default function CategoriesToolbar() {
   return (
@@ -18,9 +20,7 @@ export default function CategoriesToolbar() {
         <Button variant="outline">
           <ImportIcon className="rotate-180" /> Export csv
         </Button>
-        <Button>
-          <PlusIcon /> Add category
-        </Button>
+        <CategoryForm />
       </div>
     </div>
   );

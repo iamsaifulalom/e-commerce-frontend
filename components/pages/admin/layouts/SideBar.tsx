@@ -47,7 +47,7 @@ type SidebarSectionProps = {
 
 const SidebarSection: FC<SidebarSectionProps> = ({ sectionTitle, options, pathname }) => (
   <div className="flex flex-col gap-4">
-    <div className="mt-5 font-semibold">{sectionTitle}</div>
+    {sectionTitle && <div className="mt-5 font-semibold">{sectionTitle}</div>}
     <div className="ml-5 flex gap-1 flex-col">
       {options.map((menuItem) => (
         <SidebarMenuItem
@@ -90,13 +90,13 @@ const AdminSidebar: FC<AdminSidebarProps> = ({ className }) => {
       <div
         onClick={toggle}
         className={cn(
-          "fixed inset-0 bg-black/50 backdrop-blur-sm z-30 transition-opacity duration-300 xl:hidden",
+          "fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 xl:hidden",
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
       />
       <aside
         className={cn(
-          "bg-background fixed w-[250px] z-40 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
+          "bg-background fixed w-[250px] z-50 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
           isOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0",
           className
         )}
