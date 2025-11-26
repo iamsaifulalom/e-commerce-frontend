@@ -47,7 +47,7 @@ type SidebarSectionProps = {
 
 const SidebarSection: FC<SidebarSectionProps> = ({ sectionTitle, options, pathname }) => (
   <div className="flex flex-col gap-4">
-    {sectionTitle && <div className="mt-5 font-semibold">{sectionTitle}</div>}
+    {sectionTitle && <div className="font-semibold">{sectionTitle}</div>}
     <div className="ml-5 flex gap-1 flex-col">
       {options.map((menuItem) => (
         <SidebarMenuItem
