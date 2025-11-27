@@ -21,12 +21,15 @@ function PreviewCard({
   return (
     <div className="w-full flex justify-between items-center bg-input/30 h-20 p-2 pr-6 border rounded-sm">
       <div className="flex gap-2 h-full">
-        <Image
-          alt="Preview image"
-          width={100} height={100}
-          src={url}
-          className="h-full object-cover rounded-sm aspect-square"
-        />
+        <div className="h-full aspect-square overflow-hidden">
+          <Image
+            alt="Preview image"
+            width={100}
+            height={100}
+            src={url}
+            className="h-full w-full overflow-hidden object-cover rounded-sm"
+          />
+        </div>
         <div className="text-sm flex flex-col justify-center">
           <p className="font-medium">Image</p>
           <p className="text-muted-foreground">Uploaded</p>
@@ -85,7 +88,7 @@ export default function DropzoneInput({
   onChange: (value: string | string[]) => void;
   multiple?: boolean;
 }) {
-  const { handleDrop } = useImageUpload({ multiple, onChange });
+  const { handleDrop, progress } = useImageUpload({ multiple, onChange });
 
   const removeItem = (url: string) => {
     if (!value) return;
@@ -110,10 +113,13 @@ export default function DropzoneInput({
       >
         <DropzoneEmptyState />
       </Dropzone>
-
+      <div style={{width: `${progress}%`}} className="bg-green-600 h-2 rounded-full" />
       {/* Preview */}
-      <UploadPreview value={["/images/product-1.jpg", "/images/product-1.jpg"]} onRemove={removeItem} />
-      {value && <UploadPreview value={["/images/product-1.jpg", "/images/product-2.jpg"]} onRemove={removeItem} />}
+      {value &&
+        <UploadPreview
+          value={value}
+          onRemove={removeItem}
+        />}
     </div>
   );
 }

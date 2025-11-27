@@ -36,7 +36,7 @@ export default function CategoryForm() {
       {/* Trigger */}
       <DrawerTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2" /> Add Category
+          <PlusIcon className="mr-1" />Add Category
         </Button>
       </DrawerTrigger>
 
@@ -87,7 +87,7 @@ export default function CategoryForm() {
                   <FormLabel>Image</FormLabel>
                   <FormControl>
                     <DropzoneInput
-                      // value={field.value}
+                      value={field.value}
                       onChange={field.onChange}
                     />
                   </FormControl>

@@ -1,10 +1,11 @@
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import React, { ReactNode } from 'react'
+import { Toaster } from '@/components/ui/sonner'
+import { ReactNode } from 'react'
 
 export default function Layout({ children }: { children: ReactNode }) {
     return (
         <html suppressHydrationWarning>
-            <body className=''>
+            <body>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -13,6 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 >
                     {children}
                 </ThemeProvider>
+                <Toaster richColors position='top-right'/>
             </body>
         </html>
     )

@@ -4,7 +4,7 @@ import shopAPI from "@/config/axios";
 import { useState } from "react";
 
 interface UploadResponse {
-  urls: string[];
+  data: string[] | string;
 }
 
 interface UseImageUploadProps {
@@ -12,8 +12,10 @@ interface UseImageUploadProps {
   onChange: (value: string | string[]) => void;
 }
 
-export function useImageUpload({ multiple = false, onChange }: UseImageUploadProps) {
+export function useImageUpload({ multiple, onChange }: UseImageUploadProps) {
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+
 
   const handleDrop = async (incoming: File[]) => {
     if (!incoming || incoming.length === 0) return;
@@ -28,32 +30,47 @@ export function useImageUpload({ multiple = false, onChange }: UseImageUploadPro
 
       // SINGLE IMAGE UPLOAD -------------------------------------------------
       if (!multiple) {
-        formData.append("image", files[0]);
+        onChange(URL.createObjectURL(files[0])); // return ONLY the URL string
 
+        formData.append("image", files[0]);
+        console.log(files[0])
         const res = await shopAPI.post<UploadResponse>(
-          "/image",
+          "/upload/image",
           formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+            onUploadProgress: (e) => {
+              const percent = Math.round((e.loaded * 100) / (e.total || 1));
+              setProgress(percent);
+
+              if (percent === 100) {
+                setLoading(true);
+              }
+            }
+          }
         );
 
-        if (res.data?.urls?.[0]) {
-          onChange(res.data.urls[0]); // return ONLY the URL string
+        if (res.data) {
+          onChange(res.data.data); // return ONLY the URL string
         }
 
         return;
       }
 
       // MULTI UPLOAD --------------------------------------------------
-      files.forEach((img) => formData.append("images", img));
+      files.forEach((img) => {
+        formData.append("images", img)
+        onChange(URL.createObjectURL(img)); // return ONLY the URL string
+      });
 
       const res = await shopAPI.post<UploadResponse>(
-        "/images",
+        "/upload/images",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      if (res.data?.urls) {
-        onChange(res.data.urls); // return array of URLs
+      if (res.data?.data) {
+        onChange(res.data.data); // return array of URLs
       }
     } catch (error) {
       console.error("Upload failed:", error);
@@ -62,5 +79,5 @@ export function useImageUpload({ multiple = false, onChange }: UseImageUploadPro
     }
   };
 
-  return { loading, handleDrop };
+  return { loading, handleDrop, progress };
 }
