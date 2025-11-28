@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import shopAPI from "@/config/axios";
 import { toast } from "sonner";
 import { useState } from "react";
+import { AxiosError } from "axios";
 
 export function useCategoryForm() {
 
@@ -24,9 +25,13 @@ export function useCategoryForm() {
             await shopAPI.post("/category", data);
             toast.success("Category created");
             methods.reset()
-        } catch (error: any) {
-            const errorMessage = error?.response?.data?.message
-            toast.error(errorMessage)
+        } catch (error: unknown) {
+
+            if (error instanceof AxiosError) {
+                const errorMessage = error?.response?.data?.message;
+                toast.error(errorMessage || "Something went wrong");
+            }
+            toast.error("Something went wrong");
         } finally {
             setIsLoading(false)
         }
