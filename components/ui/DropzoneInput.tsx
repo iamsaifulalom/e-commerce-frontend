@@ -1,125 +1,137 @@
 "use client";
 
-import { useImageUpload } from "@/hooks/useImageUpload";
+import { createContext, useContext } from "react";
+import { useImageUpload, UploadedFile } from "@/hooks/useImageUpload";
 import { Dropzone, DropzoneEmptyState } from "./shadcn-io/dropzone";
 import { Button } from "./button";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
-
-
+import { Spinner } from "./spinner";
 
 /* -------------------------------------------------------
-   Preview Card
+   CONTEXT
 ------------------------------------------------------- */
-function PreviewCard({
-  url,
-  onRemove
-}: {
-  url: string;
-  onRemove?: () => void;
-}) {
+interface DropzoneContextType {
+  files: UploadedFile[];
+  removeItem: (url: string) => void;
+}
+
+const DropzoneContext = createContext<DropzoneContextType | null>(null);
+
+const useDropzoneContext = () => {
+  const context = useContext(DropzoneContext);
+  if (!context) throw new Error("Dropzone component must be inside DropzoneProvider");
+  return context;
+};
+
+/* -------------------------------------------------------
+   PREVIEW CARD
+------------------------------------------------------- */
+function PreviewCard({ file }: { file: UploadedFile }) {
+  const { removeItem } = useDropzoneContext();
+  const { url, loading, progress } = file;
+
   return (
     <div className="w-full flex justify-between items-center bg-input/30 h-20 p-2 pr-6 border rounded-sm">
       <div className="flex gap-2 h-full">
-        <div className="h-full aspect-square overflow-hidden">
+        <div className="h-full relative aspect-square overflow-hidden">
+          {loading && (
+            <div className="absolute inset-0 flex justify-center items-center bg-black/40">
+              <Spinner />
+            </div>
+          )}
           <Image
             alt="Preview image"
             width={100}
             height={100}
             src={url}
-            className="h-full w-full overflow-hidden object-cover rounded-sm"
+            className="h-full w-full object-cover rounded-sm"
           />
-        </div>
-        <div className="text-sm flex flex-col justify-center">
-          <p className="font-medium">Image</p>
-          <p className="text-muted-foreground">Uploaded</p>
+          {!loading && progress < 100 && (
+            <div
+              className="absolute bottom-0 left-0 h-1 bg-green-600"
+              style={{ width: `${progress}%` }}
+            />
+          )}
         </div>
       </div>
 
-      {onRemove && (
-        <Button
-          size="icon"
-          variant="secondary"
-          onClick={onRemove}
-          className="text-red-600 rounded-full">
-          <Trash2 />
-        </Button>
-      )}
+      <Button
+        type="button"
+        disabled={loading}
+        size="icon"
+        variant="secondary"
+        onClick={() => removeItem(url)}
+        className="text-red-600 rounded-full"
+      >
+        {loading ? <Spinner /> : <Trash2 />}
+      </Button>
     </div>
   );
 }
 
 /* -------------------------------------------------------
-   Preview Wrapper (Single + Multiple)
+   PREVIEW WRAPPER
 ------------------------------------------------------- */
-function UploadPreview({
-  value,
-  onRemove
-}: {
-  value: string | string[];
-  onRemove: (url: string) => void;
-}) {
-  if (!value) return null;
+function UploadPreview() {
+  const { files } = useDropzoneContext();
+  if (!files || files.length === 0) return null;
 
-  // SINGLE IMAGE
-  if (!Array.isArray(value)) {
-    return <PreviewCard url={value} onRemove={() => onRemove(value)} />;
-  }
-
-  // MULTIPLE IMAGES
   return (
-    <div className="flex flex-col gap-2">
-      {value.map((url) => (
-        <PreviewCard key={url} url={url} onRemove={() => onRemove(url)} />
+    <div className="grid grid-cols-2 gap-2">
+      {files.map((file) => (
+        <PreviewCard key={file.url} file={file} />
       ))}
     </div>
   );
 }
 
 /* -------------------------------------------------------
-   MAIN DROPZONE INPUT COMPONENT
+   DROPZONE INPUT
 ------------------------------------------------------- */
-export default function DropzoneInput({
-  value,
-  onChange,
-  multiple = false
-}: {
+interface DropzoneInputProps {
   value?: string | string[];
   onChange: (value: string | string[]) => void;
   multiple?: boolean;
-}) {
-  const { handleDrop, progress } = useImageUpload({ multiple, onChange });
+}
 
-  const removeItem = (url: string) => {
-    if (!value) return;
+export default function DropzoneInput({ value, onChange, multiple = false }: DropzoneInputProps) {
+  const { files, handleDrop, handleDelete } = useImageUpload({ multiple, onChange });
 
-    if (!Array.isArray(value)) {
-      onChange("");
-      return;
+  const removeItem = async (url: string) => {
+    try {
+      // Optimistic UI removal
+      if (!multiple) onChange("");
+      if (!multiple) {
+        onChange("");
+      } else if (Array.isArray(value)) {
+        onChange(value.filter((item) => item !== url));
+      } else {
+        // fallback if somehow value is not array
+        onChange([]);
+      }
+      await handleDelete(url);
+    } catch (err) {
+      console.error("Failed to delete image:", err);
     }
-
-    onChange(value.filter((item) => item !== url));
   };
 
   return (
-    <div className="space-y-4">
-      <Dropzone
-        className="inset-0 w-full h-40 cursor-pointer"
-        accept={{ "image/*": [] }}
-        maxFiles={multiple ? 10 : 1}
-        maxSize={1024 * 1024 * 10}
-        minSize={1024}
-        onDrop={handleDrop}
-      >
-        <DropzoneEmptyState />
-      </Dropzone>
-      <div style={{width: `${progress}%`}} className="bg-green-600 h-2 rounded-full" />
-      {/* Preview */}
-      {value &&
-        <UploadPreview
-          value={value}
-          onRemove={removeItem}
-        />}
-    </div>
+    <DropzoneContext.Provider value={{ files, removeItem }}>
+      <div className="space-y-4">
+        <Dropzone
+          className="inset-0 w-full h-40 cursor-pointer"
+          accept={{ "image/*": [] }}
+          maxFiles={multiple ? 10 : 1}
+          maxSize={1024 * 1024 * 10}
+          minSize={1024}
+          onDrop={handleDrop}
+        >
+          <DropzoneEmptyState />
+        </Dropzone>
+
+        <UploadPreview />
+      </div>
+    </DropzoneContext.Provider>
   );
 }
