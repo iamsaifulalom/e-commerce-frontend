@@ -1,12 +1,11 @@
 "use client";
 
-import { TextAlignStart } from "lucide-react";
+import { LogOut, TextAlignStart } from "lucide-react";
 import { useSidebar } from "./sidebar"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "../ui/dropdown-menu";
@@ -41,9 +40,9 @@ export default function AdminHeader() {
                             <NavUser email="test@gmail.com" name="Saiful alom" avatar="https://github.com/shadcn.png" />
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Billing</DropdownMenuItem>
-                        <DropdownMenuItem>Team</DropdownMenuItem>
-                        <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
+                        <DropdownMenuItem variant="destructive">
+                          <LogOut/>  Sign out
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

@@ -3,7 +3,9 @@
 import { admin } from '@/constants/admin-sidebar-items'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { Button } from '../ui/button';
+import { useSidebar } from './sidebar';
 
 export function AdminSidebarHeader() {
   return (
@@ -15,6 +17,13 @@ export function AdminSidebarHeader() {
 
 export function AdminSidebarItems() {
   const pathname = usePathname();
+  const { push } = useRouter();
+  const { toggleSidebar } = useSidebar()
+
+  const handleRouteClick = (path: string) => {
+    push(path);
+    toggleSidebar();
+  }
 
   return (
     <div className='px-6 py-2'>
@@ -30,13 +39,13 @@ export function AdminSidebarItems() {
           <div className='flex flex-col  gap-1'>
             {/* navigation items (link) */}
             {menu.options.map((option) => (
-              <Link href={option.path} key={option.path} className={cn(
-                'flex items-center gap-2 py-3 hover:bg-accent transition-all rounded-md px-6 cursor-pointer',
-                pathname === option.path ? 'bg-foreground text-background hover:text-background hover:bg-foreground font-medium' : ''
-              )}>
+              <Button onClick={() => handleRouteClick(option.path)} key={option.path}
+                variant={pathname === option.path ? "default" : "ghost"}
+                size="lg"
+                className="flex w-full justify-start">
                 <option.Icon className='w-4 h-4' />
                 <span>{option.name}</span>
-              </Link>
+              </Button>
             ))}
           </div>
         </div>
