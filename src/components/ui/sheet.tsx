@@ -19,7 +19,7 @@ export const useSheet = () => {
 
 export const SheetProvider = ({ children }: { children: React.ReactNode }) => {
 
-    const [isSheetOpen, setIsSheetOpen] = React.useState(true);
+    const [isSheetOpen, setIsSheetOpen] = React.useState(false);
     const toggleSheet = () => setIsSheetOpen(p => !p);
 
     return (
@@ -42,7 +42,7 @@ export const Sheet = ({ children, className }: { children?: React.ReactNode, cla
                 )}
             />
             <aside className={cn(
-                "bg-muted fixed right-0 w-[300px] z-50 top-0 flex flex-col h-screen border-l overflow-y-auto transition-all duration-300",
+                "bg-background fixed right-0 w-[300px] z-50 top-0 flex flex-col h-screen border-l overflow-y-auto transition-all duration-300",
                 isSheetOpen ? "translate-x-0" : "translate-x-full",
                 className
             )}>

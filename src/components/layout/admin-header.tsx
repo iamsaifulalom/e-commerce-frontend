@@ -19,8 +19,9 @@ import { ModeToggle } from "../ui/mode-toogle";
 
 export default function AdminHeader() {
     const { toggleSidebar } = useSidebar();
+    
     return (
-        <div className='w-full h-16 p-4 z-0 flex justify-between items-center sticky top-0 left-0 bg-muted'>
+        <div className='w-full h-16 bg-background  p-4 z-10 flex justify-between items-center sticky top-0 left-0'>
 
             {/* side bar toogle icon */}
             <TextAlignStart onClick={toggleSidebar} className="cursor-pointer xl:hidden" />
@@ -41,7 +42,7 @@ export default function AdminHeader() {
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem variant="destructive">
-                          <LogOut/>  Sign out
+                            <LogOut />  Sign out
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

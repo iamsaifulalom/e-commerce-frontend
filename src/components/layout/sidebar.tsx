@@ -46,7 +46,7 @@ export const Sidebar = ({ children, className }: { children?: React.ReactNode, c
                 )}
             />
             <aside className={cn(
-                "bg-muted fixed w-[250px] z-30 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
+                "fixed w-[250px] z-30 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0",
                 className
             )}>

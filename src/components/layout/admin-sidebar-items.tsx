@@ -7,7 +7,7 @@ import { useSidebar } from './sidebar';
 
 export function AdminSidebarHeader() {
   return (
-    <div className='p-4 sticky h-16 top-0 left-0 bg-muted border-b'>
+    <div className='p-4 sticky h-16 top-0 left-0 border-b'>
       this is reader
     </div>
   )
