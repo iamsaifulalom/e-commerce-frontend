@@ -10,9 +10,9 @@ const menus = [
     {
         sectionTitle: "Main menus",
         options: [
-            { name: "Home", path: "/admin", Icon: HomeIcon },
-            { name: "Products", path: "/admin/products", Icon: BoxIcon },
+            { name: "Dashboard", path: "/admin", Icon: HomeIcon },
             { name: "Categories", path: "/admin/categories", Icon: FolderCodeIcon },
+            { name: "Products", path: "/admin/products", Icon: BoxIcon },
             { name: "Customers", path: "/admin/customers", Icon: UsersIcon },
             { name: "Orders", path: "/admin/orders", Icon: ReceiptIcon },
         ]
