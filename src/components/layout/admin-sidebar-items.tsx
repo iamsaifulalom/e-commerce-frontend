@@ -1,8 +1,6 @@
 "use client";
 
 import { admin } from '@/constants/admin-sidebar-items'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '../ui/button';
 import { useSidebar } from './sidebar';

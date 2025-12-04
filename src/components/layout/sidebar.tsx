@@ -41,12 +41,12 @@ export const Sidebar = ({ children, className }: { children?: React.ReactNode, c
         <>
             <div onClick={toggleSidebar}
                 className={cn(
-                    "fixed inset-0 bg-background/20 backdrop-blur-sm z-40 transition-opacity duration-300 xl:hidden",
+                    "fixed inset-0 bg-background/20 backdrop-blur-sm z-20 transition-opacity duration-300 xl:hidden",
                     isSidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                 )}
             />
             <aside className={cn(
-                "bg-muted fixed w-[250px] z-50 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
+                "bg-muted fixed w-[250px] z-30 flex flex-col h-screen border-r overflow-hidden transition-all duration-300",
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0",
                 className
             )}>
