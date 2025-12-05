@@ -2,10 +2,12 @@
 "use client";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { EyeIcon, EllipsisIcon } from "lucide-react";
+import { EyeIcon, EllipsisIcon, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Checkbox } from "../ui/checkbox";
+import { useDeleteCategory } from "@/hooks/use-category";
+import { Spinner } from "../ui/spinner";
 
 // types.ts
 export type Category = {
@@ -54,9 +56,18 @@ function CategoryRow({
 }
 
 
-export default function CategoriesTable({ categories }: { categories: Category[] }) {
+export default function CategoriesTable({
+  categories,
+  isLoading,
+  error
+}: {
+  categories: Category[],
+  isLoading?: boolean,
+  error?: any
+}) {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const isAllSelected = selectedIds.length === categories.length;
+  const { isDeleting, deleteCategories } = useDeleteCategory()
 
   const toggleSelectAll = () =>
     setSelectedIds(isAllSelected ? [] : categories.map(c => c.id));
@@ -86,14 +97,65 @@ export default function CategoriesTable({ categories }: { categories: Category[]
       </TableHeader>
 
       <TableBody>
-        {categories.map(category => (
-          <CategoryRow
-            key={category.id}
-            category={category}
-            isSelected={selectedIds.includes(category.id)}
-            onSelect={toggleSelect}
-          />
-        ))}
+
+        {isLoading && (
+          <TableRow>
+            <TableCell colSpan={5} className="text-center py-10">
+              Loading categories...
+            </TableCell>
+          </TableRow>
+        )}
+
+        {!isLoading && categories.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={5} className="text-center py-10">
+              No categories found.
+            </TableCell>
+          </TableRow>
+        )}
+
+        {!error && !isLoading &&
+          categories.map(category => (
+            <TableRow key={category.id}>
+              <TableCell>
+                <Checkbox
+                  checked={selectedIds.includes(category.id)}
+                  onCheckedChange={() => toggleSelect(category.id)}
+                />
+              </TableCell>
+
+              <TableCell>
+                {category.image && (
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    width={40}
+                    height={40}
+                    className="rounded-full aspect-square object-cover"
+                  />
+                )}
+              </TableCell>
+
+              <TableCell>{category.name}</TableCell>
+              <TableCell>{category.productsCount || 0}</TableCell>
+
+              <TableCell className="flex gap-3 justify-end items-center">
+                <EllipsisIcon
+                  strokeWidth={1.5}
+                  className="cursor-pointer"
+                  size={16}
+                />
+                {isDeleting === category.id ? <Spinner /> :
+                  <Trash2
+                    onClick={() => deleteCategories(category.id)}
+                    strokeWidth={1.5}
+                    className="cursor-pointer text-red-500"
+                    size={16}
+                  />
+                }
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );

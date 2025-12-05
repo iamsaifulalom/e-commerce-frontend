@@ -133,8 +133,7 @@ export function useImageUpload({ multiple = false, onChange }: UseImageUploadPro
   };
 
   const clearFiles = () => {
-  setFiles([]);         // clear UI
-  onChange(multiple ? [] : ""); // clear React Hook Form value
+  onChange(multiple ? [] : "");
 };
 
 

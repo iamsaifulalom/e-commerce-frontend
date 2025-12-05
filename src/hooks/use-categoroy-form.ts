@@ -6,11 +6,13 @@ import { AxiosError } from "axios";
 import { CategoryBody, categorySchema } from "@/schema/schema.category";
 import { ShopAPI } from "@/lib/api";
 import { useSheet } from "@/components/ui/sheet";
+import { useCategories } from "./use-category";
 
 export function useCategoryForm() {
 
     const [isLoading, setIsLoading] = useState(false);
-   const {toggleSheet}=  useSheet()
+    const { toggleSheet } = useSheet();
+    const {mutate}  = useCategories()
 
     const methods = useForm<CategoryBody>({
         resolver: zodResolver(categorySchema),
@@ -28,6 +30,7 @@ export function useCategoryForm() {
             toast.success("Category created");
             methods.reset()
             toggleSheet();
+            await mutate(); // Revalidate the categories list
         } catch (error: unknown) {
 
             if (error instanceof AxiosError) {

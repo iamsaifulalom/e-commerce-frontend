@@ -2,14 +2,15 @@
 
 import CategoryForm from './category-form'
 import CategoriesTable from './categories-table'
-import { categories } from '@/data/data.categories'
 import { Sheet, useSheet } from '../ui/sheet'
 import { DataToolbar } from '../ui/data-toolbar'
 import { useState } from 'react'
+import { useCategories } from '@/hooks/use-category'
 
 export default function CategoriesPage() {
     const { toggleSheet } = useSheet();
     const [searchTerm, setSearchTerm] = useState("");
+    const { categories, isLoading, error } = useCategories()
 
     return (
         <>
@@ -22,7 +23,11 @@ export default function CategoriesPage() {
                 onAdd={toggleSheet}
                 addLabel="Add Category"
             />
-            <CategoriesTable categories={categories} />
+            <CategoriesTable
+                isLoading={isLoading}
+                error={error?.message}
+                categories={categories}
+            />
         </>
     )
 }
