@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import { Toaster } from "sonner";
 
 export const bodoniModa = Bodoni_Moda({
   variable: "--font-bodoni-moda",
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${bodoniModa.variable} ${inter.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${bodoniModa.variable} ${inter.className}`}>
       <body>
         <ThemeProvider
           attribute="class"
@@ -35,6 +36,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Toaster richColors position='top-right' />
       </body>
     </html>
   );

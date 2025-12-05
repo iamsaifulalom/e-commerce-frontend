@@ -39,7 +39,7 @@ function CategoryRow({
             alt={category.name}
             width={100}
             height={100}
-            className="rounded-full size-10 aspect-square object-cover"
+            className="rounded-full size-10 aspect-square shrink-0 object-cover"
           />
         )}
       </TableCell>

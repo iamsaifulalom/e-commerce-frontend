@@ -37,15 +37,15 @@ export const DataToolbar: FC<Props> = ({
     return (
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 py-3">
             {/* LEFT */}
-            <div className="flex flex-col md:flex-row items-center gap-2 flex-1">
+            <div className="flex flex-col md:flex-row items-center gap-2 flex-1 w-full max-w-[430px] border-2 rounded-lg">
 
-                <div className="flex items-center">
+                <div className="flex items-center w-full">
                     <Input
                         type="search"
                         placeholder="Search..."
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="max-w-xs w-full rounded-r-none border-0"
+                        className="rounded-r-none w-full border-0"
                     />
                     <Button variant="secondary" size="icon" className="rounded-l-none">
                         <SearchIcon/>
