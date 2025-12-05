@@ -1,15 +1,17 @@
 // CategoriesTable.tsx
 "use client";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { EyeIcon, EllipsisIcon, Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
+import Image from "next/image";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Checkbox } from "../ui/checkbox";
-import { useDeleteCategory } from "@/hooks/use-category";
+import { EllipsisIcon, Trash2 } from "lucide-react";
 import { Spinner } from "../ui/spinner";
+import { useDeleteCategory } from "@/hooks/use-category";
 
-// types.ts
+// ==============================
+// Types
+// ==============================
 export type Category = {
   id: number;
   name: string;
@@ -18,76 +20,96 @@ export type Category = {
 };
 
 
-
-
+// ==============================
+// Row Component
+// ==============================
 function CategoryRow({
   category,
-  isSelected,
+  selected,
   onSelect,
+  onDelete,
+  isDeleting,
 }: {
   category: Category;
-  isSelected?: boolean;
-  onSelect?: (id: number) => void;
+  selected: boolean;
+  onSelect: () => void;
+  onDelete: () => void;
+  isDeleting: boolean;
 }) {
   return (
     <TableRow>
       <TableCell>
-        <Checkbox checked={isSelected} onCheckedChange={() => onSelect?.(category.id)} />
+        <Checkbox checked={selected} onCheckedChange={onSelect} />
       </TableCell>
+
       <TableCell>
         {category.image && (
           <Image
             src={category.image}
             alt={category.name}
-            width={100}
-            height={100}
-            className="rounded-full size-10 aspect-square shrink-0 object-cover"
+            width={40}
+            height={40}
+            className="rounded-full aspect-square object-cover"
           />
         )}
       </TableCell>
+
       <TableCell>{category.name}</TableCell>
-      <TableCell>{category.productsCount}</TableCell>
-      <TableCell className="flex gap-3 justify-end items-center">
-        <EyeIcon strokeWidth={1.5} className="cursor-pointer" size={16} />
-        <EllipsisIcon strokeWidth={1.5} className="cursor-pointer" size={16} />
+      <TableCell>{category.productsCount || 0}</TableCell>
+
+      <TableCell className="flex justify-end gap-3 items-center">
+        <EllipsisIcon className="cursor-pointer" size={16} strokeWidth={1.5} />
+
+        {isDeleting ? (
+          <Spinner />
+        ) : (
+          <Trash2
+            onClick={onDelete}
+            className="cursor-pointer text-red-500"
+            size={16}
+            strokeWidth={1.5}
+          />
+        )}
       </TableCell>
     </TableRow>
   );
 }
 
-
+// ==============================
+// Main Table Component
+// ==============================
 export default function CategoriesTable({
   categories,
   isLoading,
-  error
+  error,
 }: {
-  categories: Category[],
-  isLoading?: boolean,
-  error?: any
+  categories: Category[];
+  isLoading?: boolean;
+  error?: string;
 }) {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const isAllSelected = selectedIds.length === categories.length;
-  const { isDeleting, deleteCategories } = useDeleteCategory()
+  const allSelected = selectedIds.length === categories.length;
+
+  const { isDeleting, deleteCategory } = useDeleteCategory();
 
   const toggleSelectAll = () =>
-    setSelectedIds(isAllSelected ? [] : categories.map(c => c.id));
+    setSelectedIds(allSelected ? [] : categories.map((c) => c.id));
 
   const toggleSelect = (id: number) =>
-    setSelectedIds(selectedIds.includes(id)
-      ? selectedIds.filter(cid => cid !== id)
-      : [...selectedIds, id]);
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableCell colSpan={5}>
-            {/* <CategoriesToolbar /> */}
-          </TableCell>
+          <TableCell colSpan={5}></TableCell>
         </TableRow>
+
         <TableRow>
           <TableHead>
-            <Checkbox checked={isAllSelected} onCheckedChange={toggleSelectAll} />
+            <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} />
           </TableHead>
           <TableHead></TableHead>
           <TableHead>Name</TableHead>
@@ -97,11 +119,10 @@ export default function CategoriesTable({
       </TableHeader>
 
       <TableBody>
-
         {isLoading && (
           <TableRow>
             <TableCell colSpan={5} className="text-center py-10">
-              Loading categories...
+              Loading categories…
             </TableCell>
           </TableRow>
         )}
@@ -114,47 +135,17 @@ export default function CategoriesTable({
           </TableRow>
         )}
 
-        {!error && !isLoading &&
-          categories.map(category => (
-            <TableRow key={category.id}>
-              <TableCell>
-                <Checkbox
-                  checked={selectedIds.includes(category.id)}
-                  onCheckedChange={() => toggleSelect(category.id)}
-                />
-              </TableCell>
-
-              <TableCell>
-                {category.image && (
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    width={40}
-                    height={40}
-                    className="rounded-full aspect-square object-cover"
-                  />
-                )}
-              </TableCell>
-
-              <TableCell>{category.name}</TableCell>
-              <TableCell>{category.productsCount || 0}</TableCell>
-
-              <TableCell className="flex gap-3 justify-end items-center">
-                <EllipsisIcon
-                  strokeWidth={1.5}
-                  className="cursor-pointer"
-                  size={16}
-                />
-                {isDeleting === category.id ? <Spinner /> :
-                  <Trash2
-                    onClick={() => deleteCategories(category.id)}
-                    strokeWidth={1.5}
-                    className="cursor-pointer text-red-500"
-                    size={16}
-                  />
-                }
-              </TableCell>
-            </TableRow>
+        {!error &&
+          !isLoading &&
+          categories.map((category) => (
+            <CategoryRow
+              key={category.id}
+              category={category}
+              selected={selectedIds.includes(category.id)}
+              onSelect={() => toggleSelect(category.id)}
+              onDelete={() => deleteCategory(category.id)}
+              isDeleting={isDeleting === category.id}
+            />
           ))}
       </TableBody>
     </Table>

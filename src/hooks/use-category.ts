@@ -14,39 +14,32 @@ export function useCategories() {
         mutate,
     };
 }
-import useSWRMutation from "swr/mutation";
-import axios from "axios";
-
-// --- API CALLER ---
-async function deleteCategoriesRequest(url: string, { arg }: { arg: number[] }) {
-    const res = await axios.delete(url, {
-        data: { ids: arg }, // axios DELETE needs "data" to send body
-    });
-
-    return res.data;
-}
 
 // --- HOOK ---
 export function useDeleteCategory() {
     const [isDeleting, setIsDeleting] = useState<number | string | null>("");
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
     const { mutate } = useCategories()
 
-    const deleteCategories = async (id: string | number) => {
+    const deleteCategory = async (id: string | number) => {
         setIsDeleting(id);
         try {
             await ShopAPI.delete(`/category?id=${id}`);
             mutate();
 
-        } catch (err: any) {
-            setError(err?.response?.data?.message || "Failed to delete categories");
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err?.message);
+            } else {
+                setError("Failed to delete category");
+            }
         } finally {
             setIsDeleting(null);
         }
     };
 
     return {
-        deleteCategories,
+        deleteCategory,
         isDeleting,
         error,
     };
