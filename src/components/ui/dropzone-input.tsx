@@ -103,7 +103,7 @@ export default function DropzoneInput({ value, onChange, multiple = false }: Dro
     if (!value || (Array.isArray(value) && value.length === 0)) {
       clearFiles(); // UI-only reset
     }
-  }, [value]);
+  }, [value,clearFiles]);
 
   const removeItem = async (url: string) => {
     try {
