@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import Link from 'next/link'
 import { useSignUp } from '@/hooks/use-sign-up'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { authForms } from '@/forms/forms.auth'
 import InputField from '../ui/input-field'
 

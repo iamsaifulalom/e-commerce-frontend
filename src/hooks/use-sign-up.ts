@@ -1,6 +1,5 @@
 "use client";
 
-// import { signUpAction } from "@/actions/action.auth";
 import {
     signUpDefaultValues,
     SignUpFormValues,
@@ -9,6 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { signUp } from "@/lib/api/auth";
 
 export function useSignUp() {
     const form = useForm<SignUpFormValues>({
@@ -23,25 +23,15 @@ export function useSignUp() {
         setIsLoading(true);
         setServerError(null);
 
-        // try {
-        //     // const res = await signUpAction(data);
-
-        //     console.log(res);
-        //     if (!res.success) {
-        //         // server returned validation errors
-        //         setServerError("Please fix the highlighted errors");
-        //     }
-        //     if (res.success) {
-        //         // success
-        //         console.log("User created successfully");
-        //         form.reset(); // optional: clear the form
-        //     }
-        // } catch (err: any) {
-        //     console.error(err);
-        //     setServerError("Something went wrong. Please try again.");
-        // } finally {
-        //     setIsLoading(false);
-        // }
+        try {
+            setIsLoading(true)
+            const res = await signUp(data)
+            console.log(res)
+        } catch (err: any) {
+            console.log(err)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return { form, handleSubmit, isLoading, serverError };

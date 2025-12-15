@@ -12,9 +12,7 @@ export const signUpSchema = z
             .max(100, { message: "Name is too long." })
             .trim(),
         email: z.string().email({ message: "Please enter a valid email address." }),
-        isAgree: z.literal(true, {
-            message: "You must agree to the terms and conditions.",
-        }),
+        isAgree: z.literal(true, { message: "You must agree to the terms and conditions." }),
         password: z
             .string()
             .min(8, { message: "Password must be at least 8 characters." })
