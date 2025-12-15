@@ -1,34 +1,31 @@
 "use client";
 
-import {
-    signUpDefaultValues,
-    SignUpFormValues,
-    signUpSchema
-} from "@/schema/sign-up-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { signUp } from "@/lib/api/auth";
+import { toast } from "sonner";
+import { SignUpBody , signUpSchema } from "@/schema/auth";
 
 export function useSignUp() {
-    const form = useForm<SignUpFormValues>({
+    const form = useForm<SignUpBody>({
         resolver: zodResolver(signUpSchema),
-        defaultValues: signUpDefaultValues
     });
 
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
 
-    async function handleSubmit(data: SignUpFormValues) {
+    async function handleSubmit(data: SignUpBody) {
         setIsLoading(true);
         setServerError(null);
 
         try {
             setIsLoading(true)
             const res = await signUp(data)
-            console.log(res)
+            toast.success(res.message)
         } catch (err: any) {
-            console.log(err)
+            const errMessage = err?.response?.data?.message || "Something went wrong!";
+            toast.error(errMessage);
         } finally {
             setIsLoading(false)
         }

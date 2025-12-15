@@ -1,8 +1,8 @@
 // src/lib/api/auth.ts
-import { SignUpFormValues } from '@/schema/sign-up-schema';
+import { SignUpBody } from '@/schema/auth';
 import ShopAPI from './axios';
 
-export const signUp = async (payload: SignUpFormValues) => {
+export const signUp = async (payload: SignUpBody) => {
   const { data } = await ShopAPI.post('/auth/sign-up', payload);
   return data;
 };

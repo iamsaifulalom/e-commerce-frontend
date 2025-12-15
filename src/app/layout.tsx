@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const roboto = Roboto({
   weight: ["400"]
@@ -21,6 +22,10 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     <html lang="en">
       <body className={`${roboto.className} ${playfairDisplay.variable}`}>
         {children}
+        <Toaster
+          position="top-center"
+          richColors
+        />
       </body>
     </html>
   );

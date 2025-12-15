@@ -7,9 +7,10 @@ import { useSignUp } from '@/hooks/use-sign-up'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { authForms } from '@/forms/forms.auth'
 import InputField from '../ui/input-field'
+import { Spinner } from '../ui/spinner'
 
 export default function SignUpForm() {
-    const { form, handleSubmit, isLoading, serverError } = useSignUp();
+    const { form, handleSubmit, isLoading } = useSignUp();
 
     return (
         <div className='p-4 w-full space-y-8'>
@@ -24,9 +25,11 @@ export default function SignUpForm() {
                         {authForms.signUp.map((item) => (
                             <InputField key={item.name} form={form} {...item} />
                         ))}
+
+                        {/* checkbox for terms and conditions */}
                         <FormField
                             control={form.control}
-                            name='isAgree'
+                            name='termsAccepted'
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
@@ -45,10 +48,11 @@ export default function SignUpForm() {
                 </form>
             </Form>
             <Button
+                disabled={isLoading}
                 onClick={form.handleSubmit(handleSubmit)}
                 className="w-full mt-2 py-2.5 font-bold" size="lg"
             >
-                Sign up
+                {isLoading ? <Spinner /> : "Sign up"}
             </Button>
         </div>
     )
