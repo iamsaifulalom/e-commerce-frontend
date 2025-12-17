@@ -2,6 +2,8 @@
 
 import { Spinner } from "@/components/ui/spinner";
 import { useVerifyEmail } from "@/hooks/use-verify-email";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function VerifyEmail() {
     const { isVerifying, isSuccess, error } = useVerifyEmail();
@@ -24,9 +26,16 @@ export default function VerifyEmail() {
             )}
 
             {error && (
-                <p className="text-sm text-red-600 font-medium">
-                    {error}
-                </p>
+                <div>
+                    <p className="text-sm text-red-600 font-medium">
+                        {error}
+                    </p>
+                    <Link href="/sign-up">
+                        <Button variant="destructive" className="mt-2">
+                            Try again
+                        </Button>
+                    </Link>
+                </div>
             )}
         </div>
     );
