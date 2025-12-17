@@ -5,11 +5,17 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { signUp } from "@/lib/api/auth";
 import { toast } from "sonner";
-import { SignUpBody , signUpSchema } from "@/schema/auth";
+import { SignUpBody, signUpSchema } from "@/schema/auth";
 
 export function useSignUp() {
     const form = useForm<SignUpBody>({
         resolver: zodResolver(signUpSchema),
+        defaultValues: {
+            email: "",
+            name: "",
+            password: "",
+            termsAccepted: true
+        }
     });
 
     const [isLoading, setIsLoading] = useState(false);
