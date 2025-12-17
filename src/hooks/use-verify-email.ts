@@ -49,7 +49,7 @@ export function useVerifyEmail() {
         }
 
         verify();
-    }, [token, email]);
+    }, [token, email , router]);
 
     return { isVerifying , isSuccess , error};
 }

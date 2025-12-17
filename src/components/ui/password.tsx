@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 
 export const title = "Password with Toggle";
 
-export function Password({ type, ...props }: React.ComponentProps<"input">) {
+export function Password({ ...props }: React.ComponentProps<"input">) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
