@@ -20,9 +20,12 @@ export default function VerifyEmail() {
             )}
 
             {isSuccess && (
-                <p className="text-sm text-green-600 font-medium">
-                    Your email has been verified successfully
-                </p>
+                <>
+                    <p className="text-lg text-green-600 font-medium">
+                        Your email has been verified successfully
+                    </p>
+                    <p className="text-xs text-muted-foreground">You will redirect to dashboard within 3 seconds</p>
+                </>
             )}
 
             {error && (

@@ -13,10 +13,10 @@ export default function SignUpForm() {
     const { form, handleSubmit, isLoading } = useSignUp();
 
     return (
-        <div className='p-4 w-full space-y-8'>
+        <>
             <div className='flex flex-col gap-6'>
                 <h1 className='text-3xl font-bold'>Sign up</h1>
-                <p className='text-[16px] text-muted-foreground'>Already have an account? <Link href="" className='font-bold text-green-600'> Sign in</Link></p>
+                <p className='text-[16px] text-muted-foreground'>Already have an account? <Link href="/sign-in" className='font-bold text-green-600'> Sign in</Link></p>
             </div>
             <Form {...form}>
                 <form>
@@ -54,6 +54,6 @@ export default function SignUpForm() {
             >
                 {isLoading ? <Spinner /> : "Sign up"}
             </Button>
-        </div>
+        </>
     )
 }
