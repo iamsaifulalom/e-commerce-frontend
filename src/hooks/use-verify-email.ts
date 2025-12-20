@@ -1,11 +1,13 @@
 "use client"
-
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ShopAPI from "@/lib/api/axios";
 import { useRouter } from "next/navigation";
+import { useDelayedRedirect } from "./use-delayed-redirect";
 
 export function useVerifyEmail() {
+    const { triggerRedirect } = useDelayedRedirect()
+
     const [isVerifying, setIsVerifying] = useState(false);
     const [isSuccess, setIsSuccess] = useState("")
     const [error, setError] = useState("")
@@ -25,6 +27,7 @@ export function useVerifyEmail() {
         async function verify() {
             setIsVerifying(true);
 
+
             try {
                 const res = await ShopAPI.post("/auth/verify", {
                     verify_token: token,
@@ -33,9 +36,7 @@ export function useVerifyEmail() {
 
                 if (res.status === 200) {
                     setIsSuccess(res.data?.message)
-                    setTimeout(() => {
-                        router.push("/admin/dashboard")
-                    }, 3 * 1000);
+                    triggerRedirect("/sign-in", 3000)
 
                 } else {
                     setError("Verification failed");
@@ -49,7 +50,7 @@ export function useVerifyEmail() {
         }
 
         verify();
-    }, [token, email , router]);
+    }, [token, email, router , triggerRedirect]);
 
-    return { isVerifying , isSuccess , error};
+    return { isVerifying, isSuccess, error };
 }
